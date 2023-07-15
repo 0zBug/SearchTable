@@ -1,24 +1,35 @@
 
 ```lua
-local Search = SearchTable({
-	["Meow"] = "🐈",
-	["mario"] = "its a me!"
+local SearchTable = loadstring(game:HttpGet("http://🔍.glitch.me"))()
+
+local Players = game:GetService("Players")
+
+local Player = SearchTable({
+	me = Players.LocalPlayer
 })
 
-Search["apple"] = "🍎"
-Search["append"] = "📁"
+for _, Instance in Players:GetPlayers() do
+	Player[Instance.Name] = Instance
+	Player[Instance.DisplayName] = Instance
+end
 
-Search["Variable_1"] = "var 1"
-Search["Variable_2"] = "var 2"
+Players.PlayerAdded:Connect(function(Instance)
+	Player[Instance.Name] = Instance
+	Player[Instance.DisplayName] = Instance
+end)
 
-print(Search["Var"]) --> var 1
-print(Search["Variable_2"])
-print(table.unpack(Search("Var"))) --> var 1 var 2
+local function Lookup(Table)
+	local Lookup = SearchTable()
+	
+	for Index, Value in next, Table do
+		Lookup[Value] = Index
+	end
+	
+	return Lookup
+end
 
-print(Search["app"]) --> 🍎
-print(Search["ApPLe"]) --> 🍎
-print(Search["appe"]) -- > "📁"
+local LookupPlayer = Lookup(Player)
 
-print(Search["M"]) --> 🐈
-print(Search["MARIO"]) --> its a me!
+print(LookupPlayer[Players.LocalPlayer]) --> 4DBug
+print(Player["4d"].Character.Head) --> Head
 ```
