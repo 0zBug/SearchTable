@@ -32,4 +32,5 @@ local LookupPlayer = Lookup(Player)
 
 print(LookupPlayer[Players.LocalPlayer]) --> 4DBug
 print(Player["4d"].Character.Head) --> Head
+print(Player["me"]) --> 4DBug
 ```
