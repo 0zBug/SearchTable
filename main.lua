@@ -53,6 +53,7 @@ return function(Table)
 			return Value[1]
 		end,
 		__newindex = function(self, Index, Value)
+			rawset(self, Index, Value)
 			local Characters = string.split(string.lower(Index), "")
 
 			local Table = Search
