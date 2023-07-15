@@ -1,10 +1,12 @@
 
 return function(Table)
 	local Search = {}
+	local Metatable = {}
 
 	if Table then
 		for Index, Value in next, Table do
-			local Characters = string.split(string.lower(Index), "")
+			rawset(Metatable, Index, Value)
+			local Characters = string.split(string.lower(tostring(Index)), "")
 
 			local Table = Search
 			for _, Character in next, Characters do
@@ -22,9 +24,9 @@ return function(Table)
 		end
 	end
 
-	return setmetatable({}, {
+	return setmetatable(Metatable, {
 		__call = function(self, Index)
-			local Characters = string.split(string.lower(Index), "")
+			local Characters = string.split(string.lower(tostring(Index)), "")
 			local Value = Search
 
 			for _, Character in next, Characters do
@@ -38,7 +40,7 @@ return function(Table)
 			return Value[2]
 		end,
 		__index = function(self, Index)
-			local Characters = string.split(string.lower(Index), "")
+			local Characters = string.split(string.lower(tostring(Index)), "")
 
 			local Value = Search
 
@@ -53,8 +55,8 @@ return function(Table)
 			return Value[1]
 		end,
 		__newindex = function(self, Index, Value)
-			rawset(self, Index, Value)
-			local Characters = string.split(string.lower(Index), "")
+			rawset(self, tostring(Index), Value)
+			local Characters = string.split(string.lower(tostring(Index)), "")
 
 			local Table = Search
 			for _, Character in next, Characters do
