@@ -22,14 +22,9 @@ return function(Table)
 		end
 	end
 
-	return setmetatable(Search, {
+	return setmetatable({}, {
 		__call = function(self, Index)
 			local Characters = string.split(string.lower(Index), "")
-
-			if #Characters == 1 then
-				return rawget(rawget(Search, string.lower(Index)), 2)
-			end
-
 			local Value = Search
 
 			for _, Character in next, Characters do
@@ -44,10 +39,6 @@ return function(Table)
 		end,
 		__index = function(self, Index)
 			local Characters = string.split(string.lower(Index), "")
-
-			if #Characters == 1 then
-				return rawget(rawget(Search, string.lower(Index)), 1)
-			end
 
 			local Value = Search
 
