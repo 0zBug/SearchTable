@@ -30,7 +30,8 @@ end
 
 local LookupPlayer = Lookup(Player)
 
-print(LookupPlayer[Players.LocalPlayer]) --> 4DBug
+print(LookupPlayer[Players.LocalPlayer]) --> me
+print(LookupPlayer[Players["0zBug"]]) --> 0zBug
 print(Player["4d"].Character.Head) --> Head
 print(Player["me"]) --> 4DBug
 ```
